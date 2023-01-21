@@ -1,0 +1,9 @@
+spring:
+  datasource:
+    driverClassName: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/inventorysystem
+    username: root
+    password: testbd
+  jpa:
+    #hibernate.ddl-auto: create-drop #(solo habilita este cuando crees por primera vez la base)
+    show-sql: true
