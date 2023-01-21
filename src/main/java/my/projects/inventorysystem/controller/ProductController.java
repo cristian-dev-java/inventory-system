@@ -1,8 +1,10 @@
 package my.projects.inventorysystem.controller;
 
 import lombok.RequiredArgsConstructor;
+import my.projects.inventorysystem.dto.CustomPageResponse;
 import my.projects.inventorysystem.dto.ProductDto;
 import my.projects.inventorysystem.service.ProductService;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,8 +18,8 @@ public class ProductController {
     private final ProductService productService;
 
     @GetMapping(value = "/product")
-    public ResponseEntity<List<ProductDto>> getProduct() {
-        return productService.getProduct();
+    public ResponseEntity<CustomPageResponse> getProduct(@RequestParam int page, @RequestParam  int size) {
+        return productService.getProduct(page, size);
     }
 
     @PostMapping(value = "/product")
