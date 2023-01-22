@@ -34,6 +34,7 @@ public class ProductServiceImpl implements ProductService {
             Page<ProductDto> productDtoPage = productPage.map(p -> ProductDto.builder()
                     .productId(p.getProductId())
                     .name(p.getName())
+                    .inInventory(p.getInInventory())
                     .enabled(p.isEnabled())
                     .min(p.getMin())
                     .max(p.getMax()).build());
@@ -60,7 +61,7 @@ public class ProductServiceImpl implements ProductService {
                 Product product = Product.builder()
                         .name(productDto.getName())
                         .inInventory(productDto.getInInventory())
-                        .enabled(productDto.isEnabled())
+                        .enabled(productDto.getEnabled())
                         .min(productDto.getMin())
                         .max(productDto.getMax()).build();
                 productRepository.save(product);
@@ -75,16 +76,16 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public ResponseEntity<Void> updateProduct(ProductDto productDto) {
+    public ResponseEntity<Void> updateProduct(ProductDto productDto, int productÍd) {
         log.info("Init updateProduct with: {}", productDto);
         ResponseEntity<Void> response;
         try {
-            Optional<Product> productOptional = productRepository.findById(productDto.getProductId());
+            Optional<Product> productOptional = productRepository.findById(productÍd);
             if (productOptional.isPresent()) {
                 Product product = productOptional.get();
                 product.setInInventory(productDto.getInInventory());
                 product.setName(productDto.getName());
-                product.setEnabled(productDto.isEnabled());
+                product.setEnabled(productDto.getEnabled());
                 product.setMin(productDto.getMin());
                 product.setMax(productDto.getMax());
                 productRepository.save(product);

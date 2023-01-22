@@ -33,7 +33,7 @@ public interface ProductService {
      * @param productDto producto a actualizar
      * @return
      */
-    ResponseEntity<Void> updateProduct(ProductDto productDto);
+    ResponseEntity<Void> updateProduct(ProductDto productDto, int productId);
 
     /**
      * Método que permite desactivar un producto (ya que no es una buena práctica eliminar información de la bd)
