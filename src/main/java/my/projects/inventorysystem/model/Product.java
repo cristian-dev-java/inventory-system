@@ -1,22 +1,26 @@
 package my.projects.inventorysystem.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-@Data
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+@Getter
+@Setter
 @Entity
 @Builder
 @Table(name = "producto")
 @NoArgsConstructor
 @AllArgsConstructor
-//@Table(name = "product", schema = "movieschallenge")
 public class Product {
 
     @Id
-    @Column(name = "product_id")
+    @Column(name = "producto_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int productId;
     @Column(name = "nombre")
@@ -29,5 +33,15 @@ public class Product {
     private int min;
     @Column(name = "maximo")
     private int max;
+    @JsonIgnore
+    @OneToMany(
+            mappedBy = "product"
+    )
+    Set<BuyProduct> buys = new HashSet<>();
+
+    public Product(int productId) {
+        super();
+        this.productId = productId;
+    }
 
 }
