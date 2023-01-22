@@ -1,18 +1,16 @@
 package my.projects.inventorysystem.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-@Data
+@Getter
+@Setter
 @Entity
 @Builder
 @Table(name = "compra_producto")
 @NoArgsConstructor
 @AllArgsConstructor
-//@Table(name = "product", schema = "movieschallenge")
 public class BuyProduct {
 
     @Id
@@ -21,8 +19,9 @@ public class BuyProduct {
     private int buyProductId;
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "compra_id" )
+    @JsonIgnore
     private Buy buy;
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "producto_id")
     private Product product;
     @Column(name = "cantidad")

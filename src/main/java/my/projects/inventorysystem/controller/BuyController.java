@@ -1,12 +1,8 @@
 package my.projects.inventorysystem.controller;
 
-import jakarta.validation.Valid;
-import jakarta.validation.constraints.Min;
 import lombok.RequiredArgsConstructor;
-import my.projects.inventorysystem.dto.CustomPageResponse;
-import my.projects.inventorysystem.dto.ProductDto;
-import my.projects.inventorysystem.model.Buy;
-import my.projects.inventorysystem.repository.BuyRepository;
+import my.projects.inventorysystem.dto.BuyDto;
+import my.projects.inventorysystem.service.BuyService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -19,17 +15,16 @@ import java.util.List;
 @RequestMapping(value = "/buy")
 public class BuyController {
 
-    private final BuyRepository buyRepository;
+    private final BuyService buyService;
 
     @GetMapping(value = "/buy")
-    public ResponseEntity<List<Buy>> getBuy() {
-        return ResponseEntity.ok(buyRepository.findAll());
+    public ResponseEntity<List<BuyDto>> getBuy() {
+        return buyService.getBuys();
     }
 
     @PostMapping(value = "/buy")
-    public ResponseEntity<Void> saveBuy(@RequestBody Buy buy) {
-        buyRepository.save(buy);
-        return ResponseEntity.ok().build();
+    public ResponseEntity<Void> saveBuy(@RequestBody BuyDto buyDto) {
+        return buyService.saveBuy(buyDto);
     }
 
 }

@@ -1,10 +1,7 @@
 package my.projects.inventorysystem.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -14,9 +11,13 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-@Data
+@Getter
+@Setter
 @Entity
+@Builder
 @Table(name = "compra")
+@NoArgsConstructor
+@AllArgsConstructor
 public class Buy {
 
     @Id
@@ -33,24 +34,14 @@ public class Buy {
     private String clientName;
     @OneToMany(
             mappedBy = "buy",
-            cascade = CascadeType.ALL
+            cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY
     )
     private Set<BuyProduct> products = new HashSet<>();
 
-    public Buy(){
-        var products = this.products;
-        for(BuyProduct buyProduct : products) buyProduct.setBuy(this);
-        this.products = products;
-    }
-
-    public Buy(int buyId, LocalDateTime date, String clientIdType, long clientId, String clientName, BuyProduct... buyProducts) {
+/*    public void setBuyId(int buyId) {
         this.buyId = buyId;
-        this.date = date;
-        this.clientIdType = clientIdType;
-        this.clientId = clientId;
-        this.clientName = clientName;
-        for(BuyProduct buyProduct : buyProducts) buyProduct.setBuy(this);
-        this.products = Stream.of(buyProducts).collect(Collectors.toSet());
-    }
+        for(BuyProduct buyProduct : this.products) buyProduct.setBuy(this);
+    }*/
 
 }
