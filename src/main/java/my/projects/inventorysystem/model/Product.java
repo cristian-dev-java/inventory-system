@@ -6,6 +6,12 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 @Data
 @Entity
 @Builder
@@ -16,7 +22,7 @@ import lombok.NoArgsConstructor;
 public class Product {
 
     @Id
-    @Column(name = "product_id")
+    @Column(name = "producto_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int productId;
     @Column(name = "nombre")
@@ -29,5 +35,15 @@ public class Product {
     private int min;
     @Column(name = "maximo")
     private int max;
+    @OneToMany(
+            mappedBy = "product",
+            cascade = CascadeType.ALL
+    )
+    Set<BuyProduct> buys = new HashSet<>();
+
+    public Product(int productId) {
+        super();
+        this.productId = productId;
+    }
 
 }
