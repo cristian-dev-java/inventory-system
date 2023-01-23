@@ -23,7 +23,7 @@ public class BuyController {
     }
 
     @PostMapping(value = "/buy")
-    public ResponseEntity<Void> saveBuy(@RequestBody BuyDto buyDto) {
+    public ResponseEntity<String> saveBuy(@RequestBody BuyDto buyDto) {
         return buyService.saveBuy(buyDto);
     }
 
